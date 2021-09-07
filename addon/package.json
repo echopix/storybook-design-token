@@ -1,5 +1,5 @@
 {
-  "name": "storybook-design-token",
+  "name": "@echopix/storybook-design-token",
   "version": "1.2.0",
   "main": "dist/preset.js",
   "license": "MIT",
@@ -21,7 +21,7 @@
   "readme": "../README.md",
   "repository": {
     "type": "git",
-    "url": "https://github.com/UX-and-I/storybook-design-token"
+    "url": "git://github.com/echopix/storybook-design-token.git"
   },
   "files": [
     "dist/**/*",
