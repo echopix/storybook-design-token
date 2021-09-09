@@ -132,7 +132,7 @@ function determineTokensForCategory(
       isAlias: value !== declaration.value,
       name: declaration.prop,
       presenter: presenterToken || presenter,
-      rawValue: declaration.value,
+      defaultValue: declaration.value,
       sourceType,
       value
     };

@@ -6,6 +6,7 @@ import { parseSvgFiles } from '../parsers/svg-icon.parser';
 import { Category } from '../types/category.types';
 import { Config } from '../types/config.types';
 import { TokenSourceType } from '../types/token.types';
+import {Tab} from "../types/tab.types";
 
 export function useTokenTabs(config?: Config) {
   const [cssCategories, setCssCategories] = useState<Category[]>([]);
@@ -42,7 +43,7 @@ export function useTokenTabs(config?: Config) {
         (category) => category?.name === name
       ) as Category[]
     }));
-  }, [cssCategories, lessCategories, scssCategories, svgIconCategory]);
+  }, [cssCategories, lessCategories, scssCategories, svgIconCategory]) as Tab[];
 
   useEffect(() => {
     const cssFiles = config?.files?.filter((file) =>

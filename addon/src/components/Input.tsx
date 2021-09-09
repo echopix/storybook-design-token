@@ -8,14 +8,14 @@ export const Input = styled.input(({ theme }) => ({
   boxShadow: `${theme.input.border} 0 0 0 1px inset`,
   boxSizing: 'inherit',
   color: theme.input.color || 'inherit',
-  display: ' block',
+  display: 'flex',
   fontSize: theme.typography.size.s2 - 1,
   lineHeight: '20px',
   margin: ' 0',
   padding: '6px 10px',
   position: 'relative',
   transition: 'all 200ms ease-out',
-  width: '100%',
+  flex: 1,
 
   '&:focus': {
     boxShadow: `${theme.color.secondary} 0 0 0 1px inset`,

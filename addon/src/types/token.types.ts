@@ -3,7 +3,7 @@ export interface Token {
   isAlias?: boolean;
   name: string;
   presenter?: TokenPresenter;
-  rawValue: string;
+  defaultValue: string;
   sourceType: TokenSourceType;
   value: string;
 }

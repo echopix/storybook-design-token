@@ -29,7 +29,7 @@ function determineTokens(files: File[]): Token[] {
             svg?.getAttribute('id') ||
             '',
           presenter: TokenPresenter.SVG,
-          rawValue: svg.outerHTML,
+          defaultValue: svg.outerHTML,
           sourceType: TokenSourceType.SVG,
           value: svg.outerHTML
         }))

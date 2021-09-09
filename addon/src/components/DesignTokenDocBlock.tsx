@@ -46,17 +46,17 @@ export const DesignTokenDocBlock = ({
   if (!tab) {
     return null;
   }
-
+  //todo uncomment this and add things from panel.tsx
   return (
     <Container className="design-token-container">
-      {viewType === 'table' && (
+      {/*{viewType === 'table' && (
         <Card className="design-token-card">
           <TokenTable categories={tab.categories} readonly />
         </Card>
       )}
       {viewType === 'card' && (
         <TokenCards categories={tab.categories} readonly />
-      )}
+      )}*/}
     </Container>
   );
 };

@@ -1,110 +1,108 @@
-import React, { useMemo, useState } from 'react';
+import React, {useMemo, useState} from 'react';
 
-import { Icons, TooltipMessage, TooltipNote, WithTooltip } from '@storybook/components';
-import { styled } from '@storybook/theming';
+import {Icons, TooltipMessage, TooltipNote, WithTooltip} from '@storybook/components';
+import {styled} from '@storybook/theming';
 
-import { Category } from '../types/category.types';
-import { Token } from '../types/token.types';
-import { ClipboardButton } from './ClipboardButton';
-import { TokenPreview } from './TokenPreview';
-import { TokenValue } from './TokenValue';
-import { ToolButton } from './ToolButton';
+import {Category} from '../types/category.types';
+import {Token} from '../types/token.types';
+import {ClipboardButton} from './ClipboardButton';
+import {TokenPreview} from './TokenPreview';
+import {TokenValue} from './TokenValue';
+import {ToolButton} from './ToolButton';
+import {CardTabProps, TabProps} from "../types/tab-props.types";
 
-interface TokenCardsProps {
-  categories: Category[];
-  readonly?: boolean;
-}
 
-export const TokenCards = ({ categories, readonly }: TokenCardsProps) => {
-  const [tokenValueOverwrites, setTokenValueOverwrites] = useState<{
-    [tokenName: string]: any;
-  }>({});
+export const TokenCards = ({categories, readonly, setTokenValueOverwrites, tokenValueOverwrites}: CardTabProps) => {
 
-  const Container = useMemo(
-    () =>
-      styled.div(() => ({
-        display: 'grid',
-        columnGap: 12,
-        gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-        rowGap: 12
-      })),
-    []
-  );
 
-  const Card = useMemo(
-    () =>
-      styled.div(({ theme }) => ({
-        boxShadow:
-          'rgb(0 0 0 / 10%) 0px 1px 3px 1px, rgb(0 0 0 / 7%) 0px 0px 0px 1px',
-        borderRadius: 4,
-        color: theme.color.defaultText,
-        fontFamily: theme.typography.fonts.base,
-        fontSize: theme.typography.size.s1,
-        padding: 12,
+    const Container = useMemo(
+        () =>
+            styled.div(() => ({
+                display: 'grid',
+                columnGap: 12,
+                gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+                rowGap: 12
+            })),
+        []
+    );
 
-        '> *:not(:last-child)': {
-          marginBottom: 8
-        }
-      })),
-    []
-  );
+    const Card = useMemo(
+        () =>
+            styled.div(({theme}) => ({
+                boxShadow:
+                    'rgb(0 0 0 / 10%) 0px 1px 3px 1px, rgb(0 0 0 / 7%) 0px 0px 0px 1px',
+                borderRadius: 4,
+                color: theme.color.defaultText,
+                fontFamily: theme.typography.fonts.base,
+                fontSize: theme.typography.size.s1,
+                padding: 12,
 
-  const tokens = useMemo(
-    () =>
-      categories.reduce(
-        (tokens, category) => [...tokens, ...category.tokens],
-        [] as Token[]
-      ),
-    [categories]
-  );
+                '> *:not(:last-child)': {
+                    marginBottom: 8
+                }
+            })),
+        []
+    );
 
-  return (
-    <Container>
-      {tokens.map((token) => (
-        <Card key={token.name}>
-          {token.name}
+    const tokens = useMemo(
+        () =>
+            categories.reduce(
+                (acc, category) => [...acc, ...category.tokens],
+                [] as Token[]
+            ),
+        [categories]
+    );
 
-          <WithTooltip
-            hasChrome={false}
-            tooltip={<TooltipNote note="Copy to clipboard" />}
-          >
-            <ClipboardButton
-              button={
-                <ToolButton>
-                  <Icons icon="copy" />
-                </ToolButton>
-              }
-              value={token.name}
-            />
-          </WithTooltip>
+    return (
+        <Container>
+            {tokens.map((token) => (
+                <Card key={token.name}>
+                    {token.name}
 
-          {token.description && (
-            <WithTooltip tooltip={<TooltipMessage desc={token.description} />}>
-              <ToolButton>
-                <Icons icon="info" />
-              </ToolButton>
-            </WithTooltip>
-          )}
+                    <WithTooltip
+                        hasChrome={false}
+                        tooltip={<TooltipNote note="Copy to clipboard"/>}
+                    >
+                        <ClipboardButton
+                            button={
+                                <ToolButton>
+                                    <Icons icon="copy"/>
+                                </ToolButton>
+                            }
+                            value={token.name}
+                        />
+                    </WithTooltip>
 
-          <TokenValue
-            onValueChange={(newValue) => {
-              setTokenValueOverwrites((tokenValueOverwrites) => ({
-                ...tokenValueOverwrites,
-                [token.name]: newValue === token.rawValue ? undefined : newValue
-              }));
-            }}
-            readonly={readonly}
-            token={token}
-          />
+                    {token.description && (
+                        <WithTooltip tooltip={<TooltipMessage desc={token.description}/>}>
+                            <ToolButton>
+                                <Icons icon="info"/>
+                            </ToolButton>
+                        </WithTooltip>
+                    )}
 
-          <TokenPreview
-            token={{
-              ...token,
-              value: tokenValueOverwrites[token.name] || token.value
-            }}
-          />
-        </Card>
-      ))}
-    </Container>
-  );
+                    <TokenValue
+                        onValueChange={(newValue) => {
+                            setTokenValueOverwrites((previousValue: any) => ({
+                                ...previousValue,
+                                [token.name]: newValue === token.defaultValue ? undefined : newValue
+                            }));
+                        }}
+                        readonly={readonly}
+                        token={{
+                            ...token,
+                            value: tokenValueOverwrites[token.name] || token.value
+                        }}
+                    />
+
+                    <TokenPreview
+                        token={{
+                            ...token,
+                            value: tokenValueOverwrites[token.name] || token.value
+                        }}
+                    />
+                </Card>
+            ))}
+        </Container>
+    );
 };
