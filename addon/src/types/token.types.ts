@@ -2,6 +2,7 @@ export interface Token {
   description?: string;
   isAlias?: boolean;
   name: string;
+  categoryName?: string;
   presenter?: TokenPresenter;
   defaultValue: string;
   sourceType: TokenSourceType;
@@ -19,6 +20,7 @@ export enum TokenPresenter {
   FONT_WEIGHT = 'FontWeight',
   GRADIENT = 'Gradient',
   LINE_HEIGHT = 'LineHeight',
+  LETTER_SPACING = 'LetterSpacing',
   OPACITY = 'Opacity',
   SHADOW = 'Shadow',
   SPACING = 'Spacing',

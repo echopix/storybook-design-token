@@ -11,9 +11,20 @@ import {TokenValue} from './TokenValue';
 import {ToolButton} from './ToolButton';
 import {CardTabProps, TabProps} from "../types/tab-props.types";
 
+interface TokenCardsProps {
+  categories: Category[];
+  readonly?: boolean;
+  showValueColumn?: boolean;
+    setTokenValueOverwrites: any
+    tokenValueOverwrites: any;
+}
 
-export const TokenCards = ({categories, readonly, setTokenValueOverwrites, tokenValueOverwrites}: CardTabProps) => {
-
+export const TokenCards = ({
+  categories,
+  readonly,
+  showValueColumn = true,
+  setTokenValueOverwrites, tokenValueOverwrites
+}: TokenCardsProps) => {
 
     const Container = useMemo(
         () =>
@@ -37,12 +48,17 @@ export const TokenCards = ({categories, readonly, setTokenValueOverwrites, token
                 fontSize: theme.typography.size.s1,
                 padding: 12,
 
-                '> *:not(:last-child)': {
-                    marginBottom: 8
-                }
-            })),
-        []
-    );
+        '> *:not(:last-child)': {
+          marginBottom: 8
+        },
+
+        'svg': {
+          maxWidth: "100%",
+          maxHeight: "100%",
+        }
+      })),
+    []
+  );
 
     const tokens = useMemo(
         () =>

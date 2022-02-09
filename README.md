@@ -1,4 +1,4 @@
-⚠️ **This is the documentation for v1. Please check the "v0"-Branch for the documentation of older versions.** ⚠️
+⚠️ **This is the documentation for v1. Please check the "v0"-Branch for documentation of older versions.** ⚠️
 
 # Storybook Design Token Addon
 
@@ -85,7 +85,7 @@ The last step is to annotate your design tokens with a category name and a prese
 
 The presenter controls how your token previews are rendered. See the next section for a complete list of available presenters. You can omit the presenter definition if you don't want to render a preview or no presenter works with your token.
 
-To list your svg icons, the addon parses your svg files searching for svg elements. **Important: Only svg elements with an `id` or `data-token-name` attribute are added to the token list.**
+To list your svg icons, the addon parses your svg files searching for svg elements. **Important: Only svg elements with an `id` or `data-token-name` attribute are added to the token list.** You can provide descriptions and category names for your icons using the (optional) attributes `data-token-description` and `data-token-category`.
 
 ## Available presenters
 
@@ -99,6 +99,7 @@ Please check the **[demo](https://storybook-design-token-v1.netlify.app/?path=/s
 - FontFamily
 - FontSize
 - FontWeight
+- LetterSpacing
 - LineHeight
 - Opacity
 - Shadow
@@ -141,7 +142,7 @@ import { DesignTokenDocBlock } from 'storybook-design-token/dist/doc-blocks';
 <DesignTokenDocBlock categoryName="Colors" viewType="card" />;
 ```
 
-The `categoryName` parameter references your token category name (the part after `@tokens` in your stylesheet annotations). The `viewType` parameter can be set to `card` or `table` to switch between both presentations.
+The `categoryName` parameter references your token category name (the part after `@tokens` in your stylesheet annotations). The `viewType` parameter can be set to `card` or `table` to switch between both presentations. In some cases you might want to hide the token values. You can do that by passing `showValueColumn={false}`.
 Check the [demo file](https://github.com/UX-and-I/storybook-design-token/blob/v1/demo/src/design-tokens/colors.stories.mdx) for usage examples.
 
 ## Browser support

@@ -1,6 +1,6 @@
 import React, { useContext, useMemo } from 'react';
 
-import { DocsContext } from '@storybook/addon-docs/blocks';
+import { DocsContext, DocsContextProps } from '@storybook/addon-docs';
 import { styled } from '@storybook/theming';
 
 import { useTokenTabs } from '../hooks/useTokenTabs';
@@ -9,15 +9,32 @@ import { TokenTable } from './TokenTable';
 
 export interface DesignTokenDocBlockProps {
   categoryName: string;
+  showValueColumn?: boolean;
   viewType?: 'card' | 'table';
+}
+
+interface CompatDocsContextProps extends DocsContextProps {
+  storyById?: (id: string) => any;
+}
+
+/**
+ * Storybook 6.4 changed the DocsContextProps interface.
+ * This is a compatibility method to get docs parameters across Storybook versions.
+ */
+function getMainStory(context: CompatDocsContextProps) {
+  return typeof context.storyById === 'function'
+    ? context.storyById(context.id!)
+    : context;
 }
 
 export const DesignTokenDocBlock = ({
   categoryName,
+  showValueColumn = true,
   viewType = 'table'
 }: DesignTokenDocBlockProps) => {
   const context = useContext(DocsContext);
-  const { tabs } = useTokenTabs(context.parameters.designToken);
+  const story = getMainStory(context);
+  const { tabs } = useTokenTabs(story.parameters.designToken);
 
   const tab = useMemo(() => tabs.find((t) => t.label === categoryName), [
     categoryName,
@@ -51,11 +68,19 @@ export const DesignTokenDocBlock = ({
     <Container className="design-token-container">
       {/*{viewType === 'table' && (
         <Card className="design-token-card">
-          <TokenTable categories={tab.categories} readonly />
+          <TokenTable
+            categories={tab.categories}
+            readonly
+            showValueColumn={showValueColumn}
+          />
         </Card>
       )}
       {viewType === 'card' && (
-        <TokenCards categories={tab.categories} readonly />
+        <TokenCards
+          categories={tab.categories}
+          readonly
+          showValueColumn={showValueColumn}
+        />
       )}*/}
     </Container>
   );

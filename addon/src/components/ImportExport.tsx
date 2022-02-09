@@ -32,7 +32,6 @@ export const ImportExport = ({ tabs, tokenValueOverwrites, setTokenValueOverwrit
     }
 
     const output = (tabs: Tab[], tokenValueOverwrites: TokenState) => {
-        console.log(tokenValueOverwrites);
         return tabs.reduce((acc,tab)=>{
             acc[tab.label] = tab.categories.reduce((acc,curr)=> {
                 for(const token of curr.tokens){

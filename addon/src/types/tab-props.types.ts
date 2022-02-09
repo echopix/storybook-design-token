@@ -13,4 +13,5 @@ export interface TabProps {
 export interface CardTabProps extends TabProps {
     categories: Category[];
     readonly?: boolean;
+    showValueColumn?: boolean;
 }

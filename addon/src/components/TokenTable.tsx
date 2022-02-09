@@ -12,7 +12,8 @@ import {ToolButton} from './ToolButton';
 import {CardTabProps} from "../types/tab-props.types";
 
 
-export const TokenTable = ({categories, readonly, tokenValueOverwrites, setTokenValueOverwrites}: CardTabProps) => {
+
+export const TokenTable = ({categories, readonly, showValueColumn = true, tokenValueOverwrites, setTokenValueOverwrites}: CardTabProps) => {
 
 
     const Table = useMemo(
@@ -85,6 +86,10 @@ export const TokenTable = ({categories, readonly, tokenValueOverwrites, setToken
 
                     ':not(:last-of-type)': {
                         paddingRight: 15
+                    },
+                    'svg': {
+                        maxWidth: "100%",
+                        maxHeight: "100%",
                     }
                 },
                 'td.overflowing': {
@@ -108,7 +113,7 @@ export const TokenTable = ({categories, readonly, tokenValueOverwrites, setToken
             <thead className="docblock-argstable-head">
             <tr>
                 <th>Name</th>
-                <th>Value</th>
+                {showValueColumn && <th>Value</th>}
                 <th>Preview</th>
             </tr>
             </thead>
@@ -142,7 +147,7 @@ export const TokenTable = ({categories, readonly, tokenValueOverwrites, setToken
                             </WithTooltip>
                         )}
                     </td>
-                    <td className='overflowing'>
+                    {showValueColumn && (<td className='overflowing'>
                         <TokenValue
                             onValueChange={(newValue) => {
                                 setTokenValueOverwrites((tokenValueOverwrites: any) => ({
@@ -158,6 +163,7 @@ export const TokenTable = ({categories, readonly, tokenValueOverwrites, setToken
                             }}
                         />
                     </td>
+                    )}
                     <td>
                         <TokenPreview
                             token={{
